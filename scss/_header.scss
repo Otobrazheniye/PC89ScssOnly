@@ -15,6 +15,12 @@ header{
 
 }
 
+.navbar-hide-list .navbar-hide-list_link{
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255, 0.3);
+
+}
 
 @include respond(tablet){
 header{
@@ -87,8 +93,5 @@ header{
   }
 
 }
-
-
-
 
 
