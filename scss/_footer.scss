@@ -1,0 +1,166 @@
+@use "sass:map";
+@use "./variables" as *;
+
+/* ===== FOOTER BASE ===== */
+
+.footer {
+  background-color: whitesmoke;
+  padding: 2.5rem 5% 1.5rem;            // отступы в %
+  font-family: Arial, sans-serif;
+  border-top: 1px solid rgba(0,0,0,.06);
+  clear: both;  
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));  // 3 колонки на десктопе
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.footer-section h3 {
+  margin: 0 0 0.6em;
+  font: 700 1rem/1.2 "Cinzel", serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: $goldText;
+}
+
+.footer-text {
+  margin: 0.1em 0;
+  font-size: 0.95rem;
+  color: rgb(39, 39, 39);
+}
+
+/* соц-блок — иконка + подпись в столбик */
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+/* каждая пара иконка+текст */
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  display: block;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.social-icons a + .footer-text {
+  margin-left: 2.4rem;   // чтобы текст под иконкой чуть сдвинуть
+}
+
+.social-icons a:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.9) sepia(1) hue-rotate(10deg) saturate(1.6);
+}
+
+/* нижняя линия */
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,.12);
+  font-size: 0.85rem;
+  color: $brand-violet;
+}
+
+
+@include respond(laptop) {
+  .footer {
+    padding: 2rem 4% 1rem;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));  // 2 колонки
+    gap: 2.5em;
+  }
+
+  .footer-section h3 {
+    font-size: 0.9rem;
+  }
+
+  .footer-text {
+    font-size: 0.9rem;
+  }
+
+  .social-icons img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footer-bottom {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+
+@include respond(tablet) {
+  .footer {
+    padding: 1.6em 0.4em 0.9em;
+    height: auto;
+  }
+
+
+  .footer-section {
+    max-width: 100%;
+  }
+
+  .footer-section h3 {
+    font-size: $fontT;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+  }
+
+  .social-icons img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .footer-bottom {
+    margin-top: 1.2rem;
+    font-size: $fontT;
+  }
+}
+
+/* ===== PHONE (<= 320px) ===== */
+@include respond(phone) {
+  .footer {
+    padding: 1.2rem 6% 0.8rem;
+  }
+
+  .footer-container {
+    gap: 1.1rem;
+  }
+
+  .footer-section h3 {
+    font-size: 0.8rem;
+  }
+
+  .footer-text {
+    font-size: $fontP;  // твоя переменная для мелкого шрифта
+  }
+
+  .social-icons img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .footer-bottom {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+  }
+}

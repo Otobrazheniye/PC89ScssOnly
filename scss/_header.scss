@@ -1,0 +1,94 @@
+@use "sass:map";
+@use "./variables" as *;
+
+
+header{
+  height: 30vh;
+
+  @include listFlex;
+  @include headerGoldHex(200px, 8px, 8%, 58%, 14%);
+}
+
+.navbar-logo_img{
+  width: 100px;
+  margin: 0.65em; 
+
+}
+
+
+@include respond(tablet){
+header{
+  height: 30vh;
+}
+
+.navbar-logo_img{
+  width: 65px;
+  margin: 0.55em; 
+
+}
+
+
+.navbar {
+    gap: 0em;
+    margin: 0;
+    padding: 0;
+
+
+}
+
+.navbar .header-list-display{
+  display: none;
+}
+
+.header-list ul {
+    gap: 0em;
+  }
+
+  .header-link p{
+    font-size: 10px;
+    margin-left: 0em;
+  }
+
+}
+
+
+
+@include respond(phone){
+header{
+  height: 30vh;
+}
+
+.navbar-logo_img{
+  width: 65px;
+  margin: 0.55em; 
+
+}
+
+
+.navbar {
+    gap: 0em;
+    margin: 0;
+    padding: 0;
+
+
+}
+
+.navbar .header-list-display{
+  display: none;
+}
+
+.header-list ul {
+    gap: 0em;
+  }
+
+  .header-link p{
+    font-size: 10px;
+    margin-left: 0em;
+  }
+
+}
+
+
+
+
+

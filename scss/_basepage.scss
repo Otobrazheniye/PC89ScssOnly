@@ -1,0 +1,696 @@
+@use "sass:map";
+@use "./variables" as *;
+
+.body-basepage{
+   background: center/cover no-repeat url("/files/img/GoldBackChainR.png");
+}
+main{
+    @include mGridIndexDesk;
+    height: 800px;
+}
+
+//#region Side Panels
+.left-bar, .right-bar {
+  position: relative;
+  overflow: hidden;      /* обрезает лишнюю линию */
+}
+
+.left-bar{
+  transform: skewY(20deg);          /* Увеличил наклон */
+  transform-origin: right center;  /* Точка поворота */
+  background: rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden; /* чтобы не вылазил контент */
+}
+.right-bar{
+  transform: skewY(20deg);          /* Увеличил наклон */
+  transform-origin: right center;  /* Точка поворота */
+  background: rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden; /* чтобы не вылазил контент */
+}
+
+
+
+/* внутренний контейнер, который "выпрямляет" текст */
+.left-bar__content,
+.left-bar__content2 {
+  transform: skewY(-20deg);
+}
+
+.side-panel {
+  position: relative;
+  overflow: hidden;
+  width: 20vw;
+  height: 790px;
+  padding: 0;
+
+  // Бело-золотая рама: белый padding-box + золотой градиент в border-box
+  background:
+    linear-gradient($ivory, $ivory) padding-box,
+    linear-gradient(135deg, $gold-1, $gold-2, $gold-3, $gold-2, $gold-1) border-box;
+  border: 2px solid transparent;
+  box-shadow:
+    0 12px 24px -12px rgba(16,17,20,.25), 
+    inset 0 1px 0 rgba(255,255,255,.9),   
+    inset 0 -1px 0 rgba(16,17,20,.06);
+  background-size: 300% 300%;
+  animation: panelShine 9s linear infinite;
+  // лёгкая фактура полотна (можно убрать)
+
+
+  // внутренние отступы для контента — уже «внутри рамки»
+  .side-panel__inner {
+    padding: 18px 18px 24px;
+  }
+}
+// ===== Left / Right geometry + unskew content
+.left-bar {
+  @extend .side-panel;
+  transform: skewY(14deg);
+  transform-origin: right center;
+
+  .left-bar__content,
+  .left-bar__content2 {
+    transform: skewY(-14deg);
+  }
+}
+
+.right-bar {
+  @extend .side-panel;
+  transform: skewY(-8deg);
+  transform-origin: left center;
+
+  .right-bar__content { transform: skewY(8deg); }
+}
+.right-bar-list a{
+  color: $gold-5;
+  font-size: $fontL;
+}
+
+// ===== Typography + bullets
+.side-panel {
+  h3{
+    margin: 10px 0 10px;
+    font: 700 18px/1.25 "Cinzel", serif;
+    letter-spacing: .02em;
+    color: $ink;
+    text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  }
+  ul{ margin: 0 0 22px; padding: 0; list-style: none; }
+  li{
+    position: relative;
+    padding: 6px 0 6px 18px;
+    color: #222;
+    opacity: .92;
+  }
+  li::before{
+    content:"";
+    position: absolute; left: 2px; top: 11px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, $gold-3, $gold-2 60%, $gold-1);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.8) inset, 0 0 10px rgba(255,215,0,.4);
+  }
+  // маленькие «пилюли» статуса в тексте
+  .pill{
+    display: inline-block;
+    padding: 2px 8px; margin-left: 6px;
+    font: 700 11px/1 "Inter", system-ui;
+    border-radius: 999px;
+    background: linear-gradient(#e7f9ea, #d4f0d9);
+    color: #137a2a; border: 1px solid rgba(19,122,42,.25);
+  }
+}
+
+// ===== Subtle interactions (safe)
+.side-panel li{
+  transition: transform .25s ease, opacity .25s ease;
+}
+.side-panel li:hover{
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+//#endregion
+
+//#region center bar grid
+.center-bar_grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  grid-template-rows: repeat(3, minmax(120px, 1fr));
+  grid-template-areas:
+    ".      first  ."
+    "second  .       third"
+    ".      four    .";
+  gap: 18px;
+  place-items: center;
+  width: min(1200px, 95%);
+  margin: 0 auto;
+}
+
+/* Привязка к областям */
+.center-bar_grid-first  { grid-area: first; }
+.center-bar_grid-second { grid-area: second; }
+.center-bar_grid-third  { grid-area: third; }
+.center-bar_grid-four   { grid-area: four; }
+
+.tile{
+  /* ромб */
+  background-color: whitesmoke;
+  width: 80%;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 2px solid #c79500;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;             /* ← обязательно! обрезаем по ромбу */
+}
+
+
+
+.tile > a img{
+  border: 2px solid $goldText;
+  transform: rotate(-45deg);
+  width: 102%;                  
+  height: 102%;
+  object-fit:cover;          
+  display: block;
+}
+
+.tile2 > a img{
+  width: 135%;                  
+  height: 135%;
+}
+
+.tile4{
+  background-color: black;
+}
+
+/* Ховер-эффект */
+.tile:hover{
+  border-color: #ffd700;
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.35),
+    0 0 22px rgba(255,215,0,.45) inset;
+  transform: rotate(45deg) scale(1.15);
+}
+
+//#endregion
+
+.nav-btn{
+    display: none;
+}
+
+.navbar-hide{
+  display: none;
+}
+
+
+
+@include respond(laptop){
+
+  main{
+    height: 700px;
+  }
+
+//#region side panels P
+
+.left-bar{
+  padding: 2px;
+  width: 25vw;
+  height: 600px;
+  margin-top: 1em;
+}
+.right-bar{
+  width: 18vw;
+  height: 300px;
+  padding: 2px;
+ 
+}
+
+.side-panel {
+
+    .side-panel__inner {
+    padding: 1px 1px 2px;
+  }
+}
+.side-panel__inner h3{
+  font-size: $fontLS;
+}
+
+
+.side-panel__inner li{
+   font-size: $fontLS;
+}
+.right-bar-list a{
+  font-size: $fontLS;
+}
+//#endregion
+
+//#region center bar P
+
+.center-bar{
+  width: 40vw;
+  margin: 0 auto;
+}
+.tile{
+  width: 160%;
+  min-width: none;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 2px solid #c79500;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;             /* ← обязательно! обрезаем по ромбу */
+}
+
+.tile > a img{
+  border: 2px solid $goldText;
+  transform: rotate(-45deg);
+  width: 98%;                  
+  height: 98%;
+  object-fit:cover;          
+  display: block;
+}
+
+.tile2 > a img{
+  width: 135%;                  
+  height: 135%;
+}
+
+
+
+.center-bar_grid{
+  grid-template-rows: repeat(4, minmax(90px, 1fr));
+
+  gap: 1em;
+  margin: 3em 0 0 0;
+  padding: 0;
+}
+//#endregion
+
+}
+
+
+@include respond(tablet){
+
+  main{
+    height: 530px;
+  }
+
+.nav-item>.pill{
+  display: none;
+}
+//#region side panels P
+
+.left-bar{
+  padding: 2px;
+  width: 25vw;
+  height: 400px;
+  margin-top: 1em;
+}
+.right-bar{
+  width: 18vw;
+  height: 100px;
+  padding: 2px;
+ 
+}
+
+.side-panel {
+
+    .side-panel__inner {
+    padding: 1px 1px 2px;
+  }
+}
+.side-panel__inner h3{
+  font-size: $fontLS;
+}
+
+
+.side-panel__inner li{
+   font-size: $fontT;
+}
+.right-bar-list a{
+  font-size: $fontT;
+}
+//#endregion
+
+//#region center bar P
+
+.center-bar{
+  width: 40vw;
+  margin: 0 auto;
+}
+.tile{
+  width: 140%;
+  min-width: 73px;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 2px solid #c79500;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;             /* ← обязательно! обрезаем по ромбу */
+}
+
+.tile > a img{
+  border: 2px solid $goldText;
+  transform: rotate(-45deg);
+  width: 98%;                  
+  height: 98%;
+  object-fit:cover;          
+  display: block;
+}
+
+.tile2 > a img{
+  width: 135%;                  
+  height: 135%;
+}
+
+.tile4{
+  background-color: black;
+}
+
+/* Ховер-эффект */
+.tile:hover{
+  border-color: #ffd700;
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.35),
+    0 0 22px rgba(255,215,0,.45) inset;
+  transform: rotate(45deg) scale(1.15);
+}
+
+
+.center-bar_grid{
+  grid-template-rows: repeat(4, minmax(90px, 1fr));
+  grid-template-areas:
+    "first    .       four"
+    "second   .      third";
+  gap: 35px;
+  margin: 3em 0 0 0;
+  padding: 0;
+}
+//#endregion
+
+
+ //#region Burger 
+ .drop { position: relative; z-index: 10; }
+
+  .nav-btn{
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-list{
+    position: static; 
+    right: 0;
+    top: 20px;
+    width: 120px;
+    max-height: 0;           
+    overflow:hidden;
+    transition: max-height .3s ease, opacity .2s ease;
+  
+    background:#fff; border:1px solid #d4af37; border-radius:10px; 
+  }
+
+
+  .drop:hover .nav-list,
+  .drop:focus-within .nav-list{
+    max-height: 600px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Содержимое списка */
+  .nav-list ul{
+    background-color: black;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-item{
+    padding: 10px 14px; 
+  }
+
+  .side-panel {
+  h3{
+    margin: 8px 0 10px;
+    letter-spacing: .02em;
+    color: $ink;
+    text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  }
+  ul{  
+    padding: 0; 
+    list-style: none; 
+    background-color: black;
+  }
+  li{
+    font-size: $fontT;
+    position: relative;
+    padding: 1px 0 1px 4px;
+    color: #ffffff;
+    opacity: 1;
+  }
+  li::before{
+    content:none;
+    
+  }
+}
+
+
+.side-panel-r>li{
+  background-color: white;
+}
+
+
+//#endregion
+
+
+//#region Header Burger
+.navbar-hide{
+  display: block;
+}
+
+
+.navbar-hide-list{
+  display: flex;
+  padding: 0;
+  justify-content: space-around;
+  
+}
+.navbar-hide-list_link{
+  color: rgb(154, 61, 61);
+  padding: 0.3em;
+
+}
+
+//#endregion
+}
+
+@include respond(phone){
+
+  main{
+    height: 360px;
+  }
+
+.nav-item>.pill{
+  display: none;
+}
+//#region side panels P
+
+.left-bar{
+  padding: 2px;
+  width: 35vw;
+  height: 250px;
+  margin-top: 1em;
+}
+.right-bar{
+  width: 25vw;
+  height: 100px;
+  padding: 2px;
+ 
+}
+
+.side-panel {
+
+    .side-panel__inner {
+    padding: 1px 1px 2px;
+  }
+}
+.side-panel__inner h3{
+  font-size: 10px;
+}
+
+
+.side-panel__inner li{
+   font-size: $fontP;
+}
+.right-bar-list a{
+  font-size: $fontP;
+}
+//#endregion
+
+//#region center bar P
+
+.center-bar{
+  width: 40vw;
+  margin: 0 auto;
+}
+.tile{
+  width: 50px;
+  min-width: 43px;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 2px solid #c79500;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;             /* ← обязательно! обрезаем по ромбу */
+}
+
+.tile > a img{
+  border: 2px solid $goldText;
+  transform: rotate(-45deg);
+  width: 98%;                  
+  height: 98%;
+  object-fit:cover;          
+  display: block;
+}
+
+.tile2 > a img{
+  width: 135%;                  
+  height: 135%;
+}
+
+.tile4{
+  background-color: black;
+}
+
+/* Ховер-эффект */
+.tile:hover{
+  border-color: #ffd700;
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.35),
+    0 0 22px rgba(255,215,0,.45) inset;
+  transform: rotate(45deg) scale(1.15);
+}
+
+
+.center-bar_grid{
+  grid-template-rows: repeat(4, minmax(90px, 1fr));
+  grid-template-areas:
+    ".      first  ."
+    ".      second ."
+    ".      third   ."
+    ".      four    .";
+  gap: 0px;
+  margin: 0;
+  padding: 0;
+}
+//#endregion
+
+
+ //#region Burger 
+ .drop { position: relative; z-index: 10; }
+
+  .nav-btn{
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-list{
+    position: static; 
+    right: 0;
+    top: 20px;
+    width: 60px;
+    max-height: 0;           
+    overflow: hidden;
+    transition: max-height .3s ease, opacity .2s ease;
+  
+    background:#fff; border:1px solid #d4af37; border-radius:10px; 
+  }
+
+
+  .drop:hover .nav-list,
+  .drop:focus-within .nav-list{
+    max-height: 600px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Содержимое списка */
+  .nav-list ul{
+    background-color: black;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-item{
+    padding: 10px 14px; 
+  }
+
+  .side-panel {
+  h3{
+    margin: 8px 0 10px;
+    letter-spacing: .02em;
+    color: $ink;
+    text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  }
+  ul{  
+    padding: 0; 
+    list-style: none; 
+    background-color: black;
+  }
+  li{
+    font-size: 7px;
+    position: relative;
+    padding: 1px 0 1px 4px;
+    color: #ffffff;
+    opacity: 1;
+  }
+  li::before{
+    content:none;
+    
+  }
+}
+
+
+.side-panel-r>li{
+  background-color: white;
+}
+
+
+//#endregion
+
+
+//#region Header Burger
+.navbar-hide{
+  display: block;
+}
+
+
+.navbar-hide-list{
+  display: flex;
+  padding: 0;
+  justify-content: space-around;
+  
+}
+.navbar-hide-list_link{
+  color: rgb(154, 61, 61);
+  padding: 0.3em;
+
+}
+
+//#endregion
+
+}

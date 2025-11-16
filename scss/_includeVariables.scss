@@ -1,0 +1,28 @@
+@use "sass:map";
+@use "./variables" as *;
+
+.kdbKey{
+  @include kbdKey()
+}
+
+.mbaseThink{
+  @include baseThink;
+}
+
+
+.quote2{
+  @include quote2;
+}
+
+.notes{
+  @include notes;
+}
+
+.keyLine2{
+  @include keyLine2
+}
+
+.footnoteCall{
+  @include footnoteCall;
+}
+
