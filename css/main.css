@@ -214,7 +214,7 @@ header > * {
   }
 }
 .body-basepage {
-  background: center/cover no-repeat url("/files/img/GoldBackChainR.png");
+  background: center/cover no-repeat url("../files/img/GoldBackChainR.png");
 }
 
 main {
@@ -939,7 +939,7 @@ main .right-bar {
 }
 
 .reseach-section1 {
-  background: center/cover no-repeat url("/files/img/TechBack11.jpg");
+  background: center/cover no-repeat url("../files/img/TechBack11.jpg");
   color: white;
 }
 
@@ -967,7 +967,7 @@ main .right-bar {
 
 .reseach-section2 {
   border-top: 1px dotted #d4af37;
-  background: center/cover no-repeat url("/files/img/RoboScales.png");
+  background: center/cover no-repeat url("../files/img/RoboScales.png");
   color: white;
 }
 
@@ -1137,7 +1137,7 @@ a {
 }
 
 .main-bar-corestatus {
-  background: center/cover url("/files/img/Server.png");
+  background: center/cover url("../files/img/Server.png");
   background-size: 88%;
   padding: 24px;
   border-radius: 16px;
@@ -1682,11 +1682,11 @@ a {
   }
 }
 .body-archives {
-  background: center/cover no-repeat url("/files/img/TechBack2.png");
+  background: center/cover no-repeat url("../files/img/TechBack2.png");
 }
 
 .back-section {
-  background: url("/files/img/TechBack2.png") repeat;
+  background: url("../files/img/TechBack2.png") repeat;
   background-size: auto; /* или 600px 600px, если хочешь крупнее */
 }
 

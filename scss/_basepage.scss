@@ -2,7 +2,7 @@
 @use "./variables" as *;
 
 .body-basepage{
-   background: center/cover no-repeat url("/files/img/GoldBackChainR.png");
+   background: center/cover no-repeat url("../files/img/GoldBackChainR.png");
 }
 main{
     @include mGridIndexDesk;
